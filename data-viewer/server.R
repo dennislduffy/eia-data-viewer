@@ -14,20 +14,20 @@ source("function-files/elec-source.R", local = TRUE)
 # Define server logic required to draw a histogram
 shinyServer(function(input, output) {
     
-    elec_gen_table <- elec_gen()
-    
-    output$elec_gen_table <- DT::renderDataTable(elec_gen_table, 
+
+# Render Electricity Generation Data --------------------------------------
+
+    output$elec_gen_table <- DT::renderDataTable(elec_gen(), 
                                                  extensions = "Buttons",  
                                                  options = list(
-                                                 
                                                      paging = TRUE,
                                                      searching = TRUE,
                                                      fixedColumns = TRUE,
                                                      autoWidth = TRUE,
                                                      ordering = TRUE,
                                                      dom = 'Bfrtip',
-                                                     buttons = c('copy', 'csv', 'excel')
-                                                     
+                                                     buttons = c('copy', 'csv', 'excel'), 
+                                                     pageLength = 15
                                                      ),
                                                  class = "display"
                                                  )
