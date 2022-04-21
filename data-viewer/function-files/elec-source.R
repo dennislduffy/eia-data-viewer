@@ -24,7 +24,7 @@ elec_gen <- function(){
   
   coal_data <- read_data("ELEC.GEN.COW-MN-99.A", "Coal")
   
-  gas_data <- read_data("ELEC.GEN.NG-MN-99.A", "Gas")
+  gas_data <- read_data("ELEC.GEN.NG-MN-99.A", "Natural Gas")
   
   nuclear_data <- read_data("ELEC.GEN.NUC-MN-99.A", "Nuclear")
   
@@ -67,10 +67,11 @@ elec_gen_bar_plot <- function(year1, year2){
   x <- elec_gen() %>%
     filter(year == year1 | year == year2, 
            fuel_type != "Other", 
-           fuel_type != "Petroleum")
+           fuel_type != "Petroleum") %>%
+    mutate(fuel_type = factor(fuel_type, levels = c("Renewables", "Natural Gas", "Coal", "Nuclear")))
   
   p <- ggplot(x, aes(fill = fuel_type, x = year, y = percent)) +
-    geom_bar(position = "fill", stat = "identity")
+    geom_bar(position = "fill", stat = "identity") + scale_fill_manual(values = c("#78BE21", "#A4BCC2", "#000000", "#008EAA"))
   
   return(p)
   

@@ -21,7 +21,8 @@ shinyUI(
                       selected = "2020")
         ),
         mainPanel(
-            plotOutput("testtable"),
+            plotOutput("elec_gen_source"),
+            downloadButton(outputId = "plot_download", label = "Download Graph"),
             DT::dataTableOutput("elec_gen_table")
         )
     )

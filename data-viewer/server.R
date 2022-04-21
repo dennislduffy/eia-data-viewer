@@ -9,17 +9,23 @@
 
 library(shiny)
 
-source("function-files/elec-source.R", local = TRUE)
+source("function-files/elec-source.R", local = TRUE) #creates data and plot for elec gen by source
+source("function-files/download-plot.R", local = TRUE) #function for download handler to work
 
 # Define server logic required to draw a histogram
 shinyServer(function(input, output) {
     
 #Render Electricity Generation Plot
   
-  
-    output$testtable <- renderPlot({
-      elec_gen_bar_plot(input$year1, input$year2)}
-      )
+    output$elec_gen_source <- renderPlot({
+      elec_gen_bar_plot(input$year1, input$year2)
+      })
+    
+    elec_gen_bar_plot_download <- reactive({
+      elec_gen_bar_plot(input$year1, input$year2)
+    })
+    
+    output$plot_download <- download_plot(elec_gen_bar_plot_download)
     
 # Render Electricity Generation Data --------------------------------------
 
@@ -32,11 +38,27 @@ shinyServer(function(input, output) {
                                                      autoWidth = TRUE,
                                                      ordering = TRUE,
                                                      dom = 'Bfrtip',
-                                                     buttons = c('copy', 'csv', 'excel'), 
+                                                     buttons = c('csv', 'excel'), 
                                                      pageLength = 10
                                                      ),
                                                  class = "display"
                                                  )
-                                                
-
+    
+    # output$elec_gen_bar_download <- downloadHandler(
+    #   
+    #   filename = function(){
+    #     
+    #     "plot.png"
+    #     
+    #   }, 
+    #   
+    #   content = function(file){
+    #     
+    #     ggsave(file, plot = output$testtable, device = "png", height = 8, width = 10)
+    #     
+    #   }
+    #   
+    # )
+    
+    
 })
