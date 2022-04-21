@@ -68,10 +68,13 @@ elec_gen_bar_plot <- function(year1, year2){
     filter(year == year1 | year == year2, 
            fuel_type != "Other", 
            fuel_type != "Petroleum") %>%
-    mutate(fuel_type = factor(fuel_type, levels = c("Renewables", "Natural Gas", "Coal", "Nuclear")))
+    mutate(fuel_type = factor(fuel_type, levels = c("Renewables", "Natural Gas", "Coal", "Nuclear")), 
+           label = ifelse(percent >= 0.05, paste(sprintf("%.0f", percent * 100),"%"),"")) 
   
   p <- ggplot(x, aes(fill = fuel_type, x = year, y = percent)) +
-    geom_bar(position = "fill", stat = "identity") + scale_fill_manual(values = c("#78BE21", "#A4BCC2", "#000000", "#008EAA"))
+    geom_bar(position = "fill", stat = "identity") + scale_fill_manual(values = c("#78BE21", "#A4BCC2", "#000000", "#008EAA")) + 
+    geom_text(aes(x = year, y = percent, label = label, group = fuel_type),
+              position = position_stack(vjust = .5), colour = "white")
   
   return(p)
   

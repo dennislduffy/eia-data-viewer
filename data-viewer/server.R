@@ -17,15 +17,17 @@ shinyServer(function(input, output) {
     
 #Render Electricity Generation Plot
   
-    output$elec_gen_source <- renderPlot({
-      elec_gen_bar_plot(input$year1, input$year2)
-      })
+    # output$elec_gen_source <- renderPlot({
+    #   elec_gen_bar_plot(input$year1, input$year2)
+    #   })
     
-    elec_gen_bar_plot_download <- reactive({
+    p1 <- reactive({
       elec_gen_bar_plot(input$year1, input$year2)
     })
     
-    output$plot_download <- download_plot(elec_gen_bar_plot_download)
+    output$elec_gen_source <- renderPlot(p1())
+    
+    output$plot_download <- download_plot(p1)
     
 # Render Electricity Generation Data --------------------------------------
 
@@ -43,22 +45,5 @@ shinyServer(function(input, output) {
                                                      ),
                                                  class = "display"
                                                  )
-    
-    # output$elec_gen_bar_download <- downloadHandler(
-    #   
-    #   filename = function(){
-    #     
-    #     "plot.png"
-    #     
-    #   }, 
-    #   
-    #   content = function(file){
-    #     
-    #     ggsave(file, plot = output$testtable, device = "png", height = 8, width = 10)
-    #     
-    #   }
-    #   
-    # )
-    
     
 })
