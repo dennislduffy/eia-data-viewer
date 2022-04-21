@@ -1,8 +1,9 @@
 # This script generates the data necessary to reproduce Figure 1-G Electricity generation within Minnesota’s borders is transforming from the 
 # 2021 quadrennial report as well as 4-N Minnesota Electricity Generation by Source
 
-elec_gen <- function(){
 
+elec_gen <- function(){
+  
   #read in api cleanup function
   
   source("function-files/api-cleanup.R")
@@ -53,7 +54,9 @@ elec_gen <- function(){
     mutate(fuel_type = "Renewables") %>%
     bind_rows(coal_data, gas_data, nuclear_data, other_data, petro_data) %>%
     group_by(year) %>%
-    mutate(percent = value / sum(value))
+    mutate(percent = round(value / sum(value), digits = 3)) %>%
+    select(year, fuel_type, value, percent) %>%
+    arrange(desc(year, percent))
   
   return(combined_data)
   
