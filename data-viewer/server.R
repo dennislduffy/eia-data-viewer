@@ -14,7 +14,13 @@ source("function-files/elec-source.R", local = TRUE)
 # Define server logic required to draw a histogram
 shinyServer(function(input, output) {
     
-
+#Render Electricity Generation Plot
+  
+  
+    output$testtable <- renderPlot({
+      elec_gen_bar_plot(input$year1, input$year2)}
+      )
+    
 # Render Electricity Generation Data --------------------------------------
 
     output$elec_gen_table <- DT::renderDataTable(elec_gen(), 
@@ -27,7 +33,7 @@ shinyServer(function(input, output) {
                                                      ordering = TRUE,
                                                      dom = 'Bfrtip',
                                                      buttons = c('copy', 'csv', 'excel'), 
-                                                     pageLength = 15
+                                                     pageLength = 10
                                                      ),
                                                  class = "display"
                                                  )

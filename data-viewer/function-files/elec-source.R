@@ -61,3 +61,20 @@ elec_gen <- function(){
   return(combined_data)
   
 }
+
+elec_gen_bar_plot <- function(year1, year2){
+  
+  x <- elec_gen() %>%
+    filter(year == year1 | year == year2, 
+           fuel_type != "Other", 
+           fuel_type != "Petroleum")
+  
+  p <- ggplot(x, aes(fill = fuel_type, x = year, y = percent)) +
+    geom_bar(position = "fill", stat = "identity")
+  
+  return(p)
+  
+}
+
+
+
