@@ -1,5 +1,6 @@
 # This script generates the data necessary to reproduce Figure 1-G Electricity generation within Minnesota’s borders is transforming from the 
 # 2021 quadrennial report as well as 4-N Minnesota Electricity Generation by Source
+library(tidyverse)
 
 
 elec_gen <- function(){
@@ -74,7 +75,9 @@ elec_gen_bar_plot <- function(year1, year2){
   p <- ggplot(x, aes(fill = fuel_type, x = year, y = percent)) +
     geom_bar(position = "fill", stat = "identity") + scale_fill_manual(values = c("#78BE21", "#A4BCC2", "#000000", "#008EAA")) + 
     geom_text(aes(x = year, y = percent, label = label, group = fuel_type),
-              position = position_stack(vjust = .5), colour = "white")
+              position = position_stack(vjust = .5), colour = "white") + scale_y_continuous(labels = scales::percent) + 
+    theme(panel.grid.major = element_blank(), panel.grid.minor = element_blank(),
+          panel.background = element_blank(), axis.line = element_line(colour = "black"))
   
   return(p)
   
