@@ -26,9 +26,19 @@ shinyServer(function(input, output) {
   output$elec_monthly <- renderPlot(p1())
   
   output$elec_monthly_table <- DT::renderDataTable(elec_monthly(), 
+                                                   server = FALSE,
+                                                   extensions = c("Buttons"),
                                                    options = list(
-                                                     paging = FALSE
-                                                   ))
+                                                     dom = 'Bfrtip',
+                                                     buttons = 
+                                                       list(
+                                                         list(
+                                                           extend = 'csv',
+                                                           buttons = c('csv'),
+                                                           exportOptions = list(
+                                                             modifiers = list(page = "all")
+                                                           )
+                                                         ))))
   
   #output$plot_download <- download_plot(p1)
 #   

@@ -22,9 +22,12 @@ shinyUI(
         #               selected = "2020")
         # ),
         mainPanel(
-            plotOutput("elec_monthly"),
-            #downloadButton(outputId = "plot_download", label = "Download Graph")#,
-            DT::dataTableOutput("elec_monthly_table")
+            tabsetPanel(type = "tabs", 
+                        tabPanel("Monthly Electricity", plotOutput("elec_monthly"), 
+                                 br(),
+                                 DT::dataTableOutput("elec_monthly_table")), 
+                        tabPanel("Henry Hub")
+                        )
         )
     )
 )

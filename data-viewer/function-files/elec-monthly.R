@@ -74,7 +74,7 @@ monthly_gen <- function(){
   xlabels[seq(2, length(xlabels), 2)] <- ""
   
   p <- data_use %>%
-    ggplot() + aes(x = date, y = value, group = fuel_type, color = fuel_type) + geom_line() + 
+    ggplot() + aes(x = date, y = value, group = fuel_type, color = fuel_type) + geom_line(size = 1.5) + 
     scale_color_manual(values = c("#000000", "#A4BCC2", "#008EAA", "#78BE21")) + 
     theme(panel.grid.major = element_blank(), panel.grid.minor = element_blank(),
           panel.background = element_blank(), axis.line = element_line(colour = "black")) + 
