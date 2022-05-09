@@ -10,6 +10,7 @@
 library(shiny)
 
 source("function-files/elec-source.R", local = TRUE) #creates data and plot for elec gen by source
+source("function-files/henry-hub.R", local = TRUE) #Pulls weekly henry hub spot prices
 source("function-files/download-plot.R", local = TRUE) #function for download handler to work
 source("function-files/elec-monthly.R", local = TRUE) #creates data and plot for elec gen by source
 
@@ -26,6 +27,28 @@ shinyServer(function(input, output) {
   output$elec_monthly <- renderPlot(p1())
   
   output$elec_monthly_table <- DT::renderDataTable(elec_monthly(), 
+                                                   server = FALSE,
+                                                   extensions = c("Buttons"),
+                                                   options = list(
+                                                     dom = 'Bfrtip',
+                                                     buttons = 
+                                                       list(
+                                                         list(
+                                                           extend = 'csv',
+                                                           buttons = c('csv'),
+                                                           exportOptions = list(
+                                                             modifiers = list(page = "all")
+                                                           )
+                                                         ))))
+  
+#Render Henry Hub data
+  p2 <- reactive({
+    henry_plot()
+  })
+  
+  output$henry_weekly <- renderPlot(p2())
+  
+  output$henry_table <- DT::renderDataTable(henry_data(), 
                                                    server = FALSE,
                                                    extensions = c("Buttons"),
                                                    options = list(

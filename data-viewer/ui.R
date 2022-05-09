@@ -26,7 +26,9 @@ shinyUI(
                         tabPanel("Monthly Electricity", plotOutput("elec_monthly"), 
                                  br(),
                                  DT::dataTableOutput("elec_monthly_table")), 
-                        tabPanel("Henry Hub")
+                        tabPanel("Henry Hub", plotOutput("henry_weekly"), 
+                                 br(), 
+                                 DT::dataTableOutput("henry_table"))
                         )
         )
     )
