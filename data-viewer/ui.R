@@ -24,10 +24,16 @@ shinyUI(
         mainPanel(
             tabsetPanel(type = "tabs", 
                         tabPanel("Monthly Electricity", plotOutput("elec_monthly"), 
+                                 downloadButton(outputId = "p1_download", label = "Download Graph"),
+                                 br(),
+                                 br(), 
                                  br(),
                                  DT::dataTableOutput("elec_monthly_table")), 
                         tabPanel("Henry Hub", plotOutput("henry_weekly"), 
+                                 downloadButton(outputId = "p2_download", label = "Download Graph"),
                                  br(), 
+                                 br(), 
+                                 br(),
                                  DT::dataTableOutput("henry_table"))
                         )
         )

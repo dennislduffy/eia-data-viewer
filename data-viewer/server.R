@@ -26,6 +26,8 @@ shinyServer(function(input, output) {
   
   output$elec_monthly <- renderPlot(p1())
   
+  output$p1_download <- download_plot(p1)
+  
   output$elec_monthly_table <- DT::renderDataTable(elec_monthly(), 
                                                    server = FALSE,
                                                    extensions = c("Buttons"),
@@ -47,6 +49,8 @@ shinyServer(function(input, output) {
   })
   
   output$henry_weekly <- renderPlot(p2())
+  
+  output$p2_download <- download_plot(p2)
   
   output$henry_table <- DT::renderDataTable(henry_data(), 
                                                    server = FALSE,
