@@ -14,16 +14,17 @@ source("function-files/elec-source.R", local = TRUE)
 # Define UI for application that draws a histogram
 shinyUI(
     fluidPage(
-        sidebarPanel(
-          selectInput("year1", "Select Baseline Year", choice = unique(elec_gen()$year), 
-                      selected = "2001"), 
-          selectInput("year2", "Select Comparison Year", choice = unique(elec_gen()$year), 
-                      selected = "2020")
-        ),
+        #removed for qc testing. 
+        # sidebarPanel(
+        #   selectInput("year1", "Select Baseline Year", choice = unique(elec_gen()$year), 
+        #               selected = "2001"), 
+        #   selectInput("year2", "Select Comparison Year", choice = unique(elec_gen()$year), 
+        #               selected = "2020")
+        # ),
         mainPanel(
-            plotOutput("elec_gen_source"),
-            downloadButton(outputId = "plot_download", label = "Download Graph"),
-            DT::dataTableOutput("elec_gen_table")
+            plotOutput("elec_monthly"),
+            #downloadButton(outputId = "plot_download", label = "Download Graph")#,
+            DT::dataTableOutput("elec_monthly_table")
         )
     )
 )

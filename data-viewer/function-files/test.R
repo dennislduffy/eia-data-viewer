@@ -4,7 +4,9 @@ library(tidyverse)
 library(jsonlite)
 library(httr)
 
-api_key <- "da4308b986243ab76873b46db95cbfa0"
+api_key <- suppressWarnings(read.table("data-viewer/function-files/api_key.txt"))
+
+api_key <- as.character(api_key[1, 1])
 
 api_cleanup <- function(series_id){
   
